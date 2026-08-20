@@ -61,6 +61,7 @@ enum Sort {
 
 const THEME_URL =
   "https://raw.githubusercontent.com/kmmiio99o/theme-marketplace/refs/heads/main/themes.json";
+const BD_THEMES_API = "https://api.betterdiscord.app/v3/store/themes";
 
 function BrowserThemeCard({
   theme,
@@ -470,25 +471,60 @@ export default function Themes() {
     setLoading(true);
     setError(null);
     try {
-      const response = await safeFetch(THEME_URL);
-      if (!response.ok)
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      const data = await response.json();
+      const results: ThemeData[] = [];
 
-      let themeList: ThemeData[] = [];
-      if (Array.isArray(data)) {
-        themeList = data;
-      } else if (data.OFFICIAL_THEMES) {
-        themeList = data.OFFICIAL_THEMES;
-      } else if (data.themes) {
-        themeList = data.themes;
-      } else if (data.THEMES) {
-        themeList = data.THEMES;
-      } else if (data.items) {
-        themeList = data.items;
+      // 1. Fetch BetterDiscord themes
+      try {
+        const bdRes = await safeFetch(BD_THEMES_API);
+        if (bdRes.ok) {
+          const bdData = await bdRes.json();
+          if (Array.isArray(bdData)) {
+            for (const item of bdData) {
+              results.push({
+                name: item.name,
+                description: item.description || "BetterDiscord Theme",
+                authors: [item.author?.display_name || item.author?.github_name || item.author?.discord_name || "BetterDiscord"],
+                installUrl: `https://betterdiscord.app/download?id=${item.id}`,
+              });
+            }
+          }
+        }
+      } catch (bdErr) {
+        console.warn("Failed to fetch BetterDiscord themes:", bdErr);
       }
 
-      setThemesList(themeList);
+      // 2. Fetch marketplace themes
+      try {
+        const response = await safeFetch(THEME_URL);
+        if (response.ok) {
+          const data = await response.json();
+          let themeList: ThemeData[] = [];
+          if (Array.isArray(data)) {
+            themeList = data;
+          } else if (data.OFFICIAL_THEMES) {
+            themeList = data.OFFICIAL_THEMES;
+          } else if (data.themes) {
+            themeList = data.themes;
+          } else if (data.THEMES) {
+            themeList = data.THEMES;
+          } else if (data.items) {
+            themeList = data.items;
+          }
+          for (const t of themeList) {
+            if (!results.some((r) => r.installUrl === t.installUrl)) {
+              results.push(t);
+            }
+          }
+        }
+      } catch (mpErr) {
+        console.warn("Failed to fetch marketplace themes:", mpErr);
+      }
+
+      if (results.length === 0) {
+        throw new Error("No themes could be fetched from BetterDiscord or Marketplace.");
+      }
+
+      setThemesList(results);
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
       setThemesList([]);

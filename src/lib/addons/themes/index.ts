@@ -10,6 +10,8 @@ import { applyAndroidAlphaKeys, normalizeToHex } from "./colors/parser";
 import { colorsPref } from "./colors/preferences";
 import { VendettaThemeManifest } from "./colors/types";
 import { updateBunnyColor } from "./colors/updater";
+import { normalizeThemeUrl, parseThemeFromContent } from "./betterdiscord";
+export { normalizeThemeUrl, parseThemeFromContent } from "./betterdiscord";
 
 export interface VdThemeInfo {
     id: string;
