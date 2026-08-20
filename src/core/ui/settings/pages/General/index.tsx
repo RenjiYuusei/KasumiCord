@@ -1,6 +1,6 @@
 import { isSafeMode, toggleSafeMode } from "@core/debug/safeMode";
 import { Strings } from "@core/i18n";
-import { shiggycordIcon } from "@core/ui/settings";
+import { kasumicordIcon } from "@core/ui/settings";
 import About from "@core/ui/settings/pages/General/About";
 import { useProxy } from "@core/vendetta/storage";
 import { findAssetId } from "@lib/api/assets";
@@ -125,8 +125,8 @@ export default function General() {
       >
         <TableRowGroup title="App Information">
           <TableRow
-            label="ShiggyCord"
-            icon={<TableRow.Icon source={{ uri: shiggycordIcon ?? "" }} />}
+            label="KasumiCord"
+            icon={<TableRow.Icon source={{ uri: kasumicordIcon ?? "" }} />}
             trailing={<TableRow.TrailingText text={debugInfo.bunny.version} />}
           />
           <TableRow
@@ -222,13 +222,7 @@ export default function General() {
               color="#5865F2"
               onPress={() => Linking.openURL(DISCORD_SERVER)}
             />
-            <CommunityCardButton
-              icon={findAssetId("img_account_sync_github_white")}
-              label="GitHub"
-              subLabel="View the source code"
-              color="#24292E"
-              onPress={() => Linking.openURL(GITHUB)}
-            />
+
           </View>
         </TableRowGroup>
 

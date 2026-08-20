@@ -228,7 +228,7 @@ export default function Developer() {
                       onChange={(v: string) =>
                         (loaderConfig.customLoadUrl.url = v)
                       }
-                      placeholder="http://localhost:4040/shiggycord.js"
+                      placeholder="http://localhost:4040/kasumicord.js"
                       label={Strings.SHIGGYCORD_URL}
                     />
                   }
@@ -316,7 +316,7 @@ export default function Developer() {
                         navigation.push("SHIGGYCORD_CUSTOM_PAGE", {
                           render: () => (
                             <ErrorBoundaryScreen
-                              error={new Error("ShiggyCord test crash")}
+                              error={new Error("KasumiCord test crash")}
                               rerender={() => {}}
                             />
                           ),
@@ -352,7 +352,7 @@ export default function Developer() {
               icon={<TableRow.Icon source={findAssetId("TrashIcon")} />}
               onPress={() => {
                 openAlert(
-                  "shiggycord-clear-bundle-reload-confirmation",
+                  "kasumicord-clear-bundle-reload-confirmation",
                   <AlertModal
                     title={Strings.MODAL_RELOAD_REQUIRED}
                     content={Strings.MODAL_RELOAD_REQUIRED_DESC}

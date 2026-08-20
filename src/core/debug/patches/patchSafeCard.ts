@@ -11,7 +11,7 @@ const ThemeStore = findByStoreNameLazy("ThemeStore");
 
 function log(...messages: any[]) {
   try {
-    logger.warn("[ShiggyCord] patchSafeCard:", ...messages);
+    logger.warn("[KasumiCord] patchSafeCard:", ...messages);
   } catch {}
 }
 

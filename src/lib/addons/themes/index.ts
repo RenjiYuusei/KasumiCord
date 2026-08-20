@@ -76,12 +76,16 @@ function validateTheme(themeJSON: any): boolean {
 }
 
 export async function fetchTheme(url: string, selected = false) {
+    const normalizedUrl = normalizeThemeUrl(url);
     let themeJSON: any;
 
     try {
-        themeJSON = await (await safeFetch(url, { cache: "no-store" })).json();
-    } catch {
-        throw new Error(`Failed to fetch theme at ${url}`);
+        const res = await safeFetch(normalizedUrl, { cache: "no-store" });
+        if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+        const text = await res.text();
+        themeJSON = parseThemeFromContent(text, normalizedUrl);
+    } catch (e: any) {
+        throw new Error(`Failed to fetch theme at ${url}: ${e?.message || e}`);
     }
 
     // Validate theme

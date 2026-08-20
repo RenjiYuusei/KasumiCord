@@ -24,8 +24,8 @@ export default () =>
         else{ info.device.codename = "(" + info.device.codename + ")" }
 
         const content = [
-            "**ShiggyCord Debug Info**",
-            `> ShiggyCord: ${info.bunny.version} (${info.bunny.loader.name} ${info.bunny.loader.version})`,
+            "**KasumiCord Debug Info**",
+            `> KasumiCord: ${info.bunny.version} (${info.bunny.loader.name} ${info.bunny.loader.version})`,
             `> Discord: ${info.discord.version} (${info.discord.build})`,
             `> React: ${info.react.version} (RN ${info.react.nativeVersion})`,
             `> Hermes: ${info.hermes.version} (bcv${info.hermes.bytecodeVersion})`,

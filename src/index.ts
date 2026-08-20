@@ -57,7 +57,7 @@ export default async () => {
   window.bunny = lib;
 
   logger.log(
-    "ShiggyCord: UI-critical initialization complete — deferring plugin & network work",
+    "KasumiCord: UI-critical initialization complete — deferring plugin & network work",
   );
 
   // Deferred work: run after interactions to avoid blocking initial paint and navigation.
@@ -92,5 +92,5 @@ export default async () => {
   }
 
   // Final ready log for basic UI availability.
-  logger.log("ShiggyCord is ready.");
+  logger.log("KasumiCord is ready.");
 };

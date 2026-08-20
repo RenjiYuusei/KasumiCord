@@ -7,7 +7,7 @@ import { findByNameLazy } from "@metro/wrappers";
 
 function log(...messages: any[]) {
   try {
-    logger.warn("[ShiggyCord] patchAnimatedValue:", ...messages);
+    logger.warn("[KasumiCord] patchAnimatedValue:", ...messages);
   } catch {}
 }
 
@@ -17,7 +17,7 @@ function log(...messages: any[]) {
  * through `setValue()` (which calls `_updateValue`) or through the constructor.
  * Some of Discord's own flows (and third-party plugins) hit this during
  * animation setup, which bubbles up to the React ErrorBoundary and makes
- * ShiggyCord render its custom crash screen.
+ * KasumiCord render its custom crash screen.
  *
  * Fix the root cause instead of masking the symptom:
  * - `_updateValue` is a prototype method, so one patch covers every instance no

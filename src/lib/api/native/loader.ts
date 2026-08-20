@@ -11,7 +11,7 @@ const rainLoaderIdentity = globalThis.__RAIN_LOADER__;
 const vendettaLoaderIdentity = globalThis.__vendetta_loader;
 
 // @ts-ignore
-const shiggyLoaderIdentity = globalThis.__SHIGGY_LOADER__;
+const kasumiLoaderIdentity = globalThis.__SHIGGY_LOADER__;
 
 export interface VendettaLoaderIdentity {
     name: string;
@@ -39,8 +39,8 @@ export function isRa1nLoader() {
     return rainLoaderIdentity != null;
 }
 
-export function isShiggyLoader() {
-    return shiggyLoaderIdentity != null;
+export function isKasumiLoader() {
+    return kasumiLoaderIdentity != null;
 }
 
 function polyfillVendettaLoaderIdentity() {
@@ -105,8 +105,8 @@ export function getLoaderIdentity() {
         return getVendettaLoaderIdentity();
     } else if (isRa1nLoader()) {
         return rainLoaderIdentity();
-    } else if (isShiggyLoader()) {
-        return shiggyLoaderIdentity;
+    } else if (isKasumiLoader()) {
+        return kasumiLoaderIdentity;
     }
 
     return null;
@@ -125,7 +125,7 @@ export function getLoaderName() {
     if (isPyonLoader()) return pyonLoaderIdentity.loaderName;
     else if (isRa1nLoader()) return rainLoaderIdentity.loadername;
     else if (isVendettaLoader()) return vendettaLoaderIdentity.name;
-    else if (isShiggyLoader()) return shiggyLoaderIdentity.loaderName;
+    else if (isKasumiLoader()) return kasumiLoaderIdentity.loaderName;
 
     return "Unknown";
 }
@@ -133,7 +133,7 @@ export function getLoaderName() {
 export function getLoaderVersion(): string | null {
     if (isPyonLoader()) return pyonLoaderIdentity.loaderVersion;
     else if (isRa1nLoader()) return rainLoaderIdentity.loaderVersion;
-    else if (isShiggyLoader()) return shiggyLoaderIdentity.loaderVersion;
+    else if (isKasumiLoader()) return kasumiLoaderIdentity.loaderVersion;
     return null;
 }
 
@@ -156,8 +156,8 @@ export function isThemeSupported() {
         return vendettaLoaderIdentity!!.features.themes != null;
     } else if (isRa1nLoader()) {
         return false; // Rain has theme support disabled, this is here just to make sure it doesnt think it does
-    } else if (isShiggyLoader()) {
-        return shiggyLoaderIdentity.hasThemeSupport;
+    } else if (isKasumiLoader()) {
+        return kasumiLoaderIdentity.hasThemeSupport;
     }
 
     return false;
@@ -171,8 +171,8 @@ export function getStoredTheme(): VdThemeInfo | null {
         if (!themeProp) return null;
         // @ts-ignore
         return globalThis[themeProp] || null;
-    } else if (isShiggyLoader()) {
-        return shiggyLoaderIdentity.storedTheme || null;
+    } else if (isKasumiLoader()) {
+        return kasumiLoaderIdentity.storedTheme || null;
     }
 
     return null;
@@ -183,8 +183,8 @@ export function getThemeFilePath() {
         return "pyoncord/current-theme.json";
     } else if (isVendettaLoader()) {
         return "vendetta_theme.json";
-    } else if (isShiggyLoader()) {
-        return "ShiggyCord/current-theme.json";
+    } else if (isKasumiLoader()) {
+        return "KasumiCord/current-theme.json";
     }
 
     return null;
@@ -258,7 +258,7 @@ export function getLoaderConfigPath() {
 
 export function isFontSupported() {
     if (isPyonLoader()) return pyonLoaderIdentity.fontPatch === 2;
-    else if (isShiggyLoader()) return shiggyLoaderIdentity.fontPatch === 2;
+    else if (isKasumiLoader()) return kasumiLoaderIdentity.fontPatch === 2;
 
     return false;
 }

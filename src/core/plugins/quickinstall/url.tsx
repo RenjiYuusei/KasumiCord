@@ -24,7 +24,7 @@ const { getChannel } = lazyDestructure(() => findByProps("getChannel"));
 function typeFromUrl(url: string) {
   if (url.startsWith(VD_PROXY_PREFIX)) {
     return "plugin";
-  } else if (url.endsWith(".json") && isThemeSupported()) {
+  } else if ((url.endsWith(".json") || url.endsWith(".css") || url.includes("betterdiscord.app") || url.includes("raw.githubusercontent.com")) && isThemeSupported()) {
     return "theme";
   }
 }
