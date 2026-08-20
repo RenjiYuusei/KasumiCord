@@ -4,6 +4,7 @@ import { findByNameLazy, findByStoreName } from "@metro/wrappers";
 import { PrimitiveType } from "intl-messageformat";
 
 import langDefault from "./default.json";
+import langVi from "./vi.json";
 
 const IntlMessageFormat = findByNameLazy(
     "MessageFormat",
@@ -66,6 +67,11 @@ function fetchLocale(locale: string) {
             // use local default.json for english
             logger.log("[i18n] Using local default.json for English locale");
             _loadedStrings[resolvedLocale] = langDefault;
+            _currentLocale = resolvedLocale;
+        } else if (resolvedLocale.toLowerCase().startsWith("vi")) {
+            // use bundled vi.json for vietnamese
+            logger.log("[i18n] Using local vi.json for Vietnamese locale");
+            _loadedStrings[resolvedLocale] = langVi as any;
             _currentLocale = resolvedLocale;
         } else {
             fetch(`https://codeberg.org/cocobo1/kettu-i18n/raw/branch/main/base/${resolvedLocale}.json`)
