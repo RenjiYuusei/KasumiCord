@@ -105,7 +105,7 @@ function BrowserThemeCard({
       // Show success feedback
       showSheet("ThemeInstalledSheet", () => (
         <ActionSheet>
-          <BottomSheetTitleHeader title="Theme Installed" />
+          <BottomSheetTitleHeader title={Strings.THEME_INSTALLED} />
           <View style={{ padding: 16, alignItems: "center", gap: 12 }}>
             <View
               style={{
@@ -131,7 +131,7 @@ function BrowserThemeCard({
               color="text-muted"
               style={{ textAlign: "center" }}
             >
-              The theme has been added to your themes list.
+              {Strings.THEME_INSTALLED_DESC}
             </Text>
             <View
               style={{
@@ -143,7 +143,7 @@ function BrowserThemeCard({
             >
               <Button
                 size="lg"
-                text="Close"
+                text={Strings.CLOSE}
                 variant="primary"
                 style={{ flex: 1 }}
                 onPress={() => hideActionSheet()}
@@ -153,11 +153,11 @@ function BrowserThemeCard({
         </ActionSheet>
       ));
     } catch (e) {
-      console.error("Failed to install theme:", e);
+      console.error("{Strings.INSTALLATION_FAILED}:", e);
       // Show error feedback
       showSheet("ThemeInstallFailedSheet", () => (
         <ActionSheet>
-          <BottomSheetTitleHeader title="Installation Failed" />
+          <BottomSheetTitleHeader title={Strings.INSTALLATION_FAILED} />
           <View style={{ padding: 16, alignItems: "center", gap: 12 }}>
             <View
               style={{
@@ -175,7 +175,7 @@ function BrowserThemeCard({
                 }}
               />
             </View>
-            <Text variant="heading-md/bold">Failed to install theme</Text>
+            <Text variant="heading-md/bold">{Strings.INSTALLATION_FAILED}</Text>
             <Card style={{ width: "100%" }}>
               <Text variant="text-md/medium">
                 {e instanceof Error ? e.message : String(e)}
@@ -191,14 +191,14 @@ function BrowserThemeCard({
             >
               <Button
                 size="md"
-                text="Cancel"
+                text={Strings.CANCEL}
                 variant="secondary"
                 style={{ flex: 1 }}
                 onPress={() => hideActionSheet()}
               />
               <Button
                 size="md"
-                text="Try Again"
+                text={Strings.TRY_AGAIN}
                 variant="primary"
                 icon={findAssetId("RetryIcon")}
                 style={{ flex: 1 }}
@@ -248,7 +248,7 @@ function BrowserThemeCard({
               {name}
             </Text>
             <Text variant="text-md/semibold" color="text-muted">
-              by {authors?.join(", ") || "Unknown"}
+              {`${Strings.BY_AUTHOR} ${authors?.join(", ") || "Unknown"}`}
             </Text>
           </View>
           <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
@@ -260,11 +260,11 @@ function BrowserThemeCard({
                 showSimpleActionSheet({
                   key: "ThemeShareSheet",
                   header: {
-                    title: "Share Theme",
+                    title: Strings.SHARE_THEME,
                   },
                   options: [
                     {
-                      label: "Copy Install URL",
+                      label: Strings.COPY_INSTALL_URL,
                       onPress: () => {
                         clipboard.setString(themeId);
                         // URL copied
@@ -277,7 +277,7 @@ function BrowserThemeCard({
             {isInstalled ? (
               <Button
                 size="sm"
-                text="Uninstall"
+                text={Strings.UNINSTALL}
                 variant="destructive"
                 icon={findAssetId("TrashIcon")}
                 onPress={handleUninstall}
@@ -286,7 +286,7 @@ function BrowserThemeCard({
               <View style={{ opacity: pulse }}>
                 <Button
                   size="sm"
-                  text={isInstalling ? "Installing..." : "Install"}
+                  text={isInstalling ? Strings.INSTALLING : Strings.INSTALL}
                   variant="primary"
                   disabled={isInstalling}
                   loading={isInstalling}
@@ -372,7 +372,7 @@ export default function Themes() {
         key="mode-toggle"
         size="sm"
         variant="secondary"
-        text={mode === "installed" ? "Browse" : "Installed"}
+        text={mode === "installed" ? Strings.BROWSE : Strings.INSTALLED}
         icon={findAssetId(mode === "installed" ? "LinkIcon" : "DownloadIcon")}
         style={{
           shadowColor: "#000",
@@ -397,13 +397,13 @@ export default function Themes() {
 
             return (
               <ActionSheet>
-                <BottomSheetTitleHeader title="Options" />
+                <BottomSheetTitleHeader title={Strings.OPTIONS} />
                 <View style={{ paddingVertical: 20, gap: 12 }}>
                   {/* Changed from TableRadioGroup to individual TableSwitchRow components
                       for better UX - users can now toggle options individually */}
-                  <TableRowGroup title="Override Theme Type">
+                  <TableRowGroup title={Strings.OVERRIDE_THEME_TYPE}>
                     <TableCheckboxRow
-                      label="Auto"
+                      label={Strings.AUTO}
                       icon={<TableRowIcon source={findAssetId("RobotIcon")} />}
                       checked={!colorsPref.type}
                       onPress={() => {
@@ -417,7 +417,7 @@ export default function Themes() {
                       }}
                     />
                     <TableCheckboxRow
-                      label="Dark"
+                      label={Strings.DARK}
                       icon={<TableRowIcon source={findAssetId("ThemeDarkIcon")} />}
                       checked={colorsPref.type === "dark"}
                       onPress={() => {
@@ -429,7 +429,7 @@ export default function Themes() {
                       }}
                     />
                     <TableCheckboxRow
-                      label="Light"
+                      label={Strings.LIGHT}
                       icon={<TableRowIcon source={findAssetId("ThemeLightIcon")} />}
                       checked={colorsPref.type === "light"}
                       onPress={() => {
@@ -441,10 +441,10 @@ export default function Themes() {
                       }}
                     />
                   </TableRowGroup>
-                  <TableRowGroup title="Chat Background">
+                  <TableRowGroup title={Strings.CHAT_BACKGROUND}>
                     <TableCheckboxRow
-                      label="Show Background"
-                      subLabel="Enable or disable themes background on chat"
+                      label={Strings.SHOW_BACKGROUND}
+                      subLabel={Strings.SHOW_BACKGROUND_DESC}
                       icon={<TableRowIcon source={findAssetId("ImageIcon")} />}
                       checked={!colorsPref.customBackground}
                       onPress={() => {
@@ -559,7 +559,7 @@ export default function Themes() {
               await installTheme(url);
               showSheet("ThemeInstalledSheet", () => (
                 <ActionSheet>
-                  <BottomSheetTitleHeader title="Theme Installed" />
+                  <BottomSheetTitleHeader title={Strings.THEME_INSTALLED} />
                   <View style={{ padding: 16, alignItems: "center", gap: 12 }}>
                     <View
                       style={{
@@ -585,7 +585,7 @@ export default function Themes() {
                       color="text-muted"
                       style={{ textAlign: "center" }}
                     >
-                      The theme has been added to your themes list.
+                      {Strings.THEME_INSTALLED_DESC}
                     </Text>
                     <View
                       style={{
@@ -597,7 +597,7 @@ export default function Themes() {
                     >
                       <Button
                         size="md"
-                        text="Cancel"
+                        text={Strings.CANCEL}
                         variant="secondary"
                         style={{ flex: 1 }}
                         onPress={() => hideActionSheet()}
@@ -680,7 +680,7 @@ export default function Themes() {
           </Card>
           <Button
             size="lg"
-            text="Try Again"
+            text={Strings.TRY_AGAIN}
             onPress={fetchThemes}
             icon={findAssetId("RetryIcon")}
             style={{ marginTop: 8 }}

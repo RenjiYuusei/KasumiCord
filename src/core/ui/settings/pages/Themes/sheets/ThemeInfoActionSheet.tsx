@@ -50,7 +50,7 @@ function TitleComponent({ theme }: { theme: VdThemeInfo }) {
             disabled={!authors.some((a) => a.id)}
           >
             <Text variant="text-md/medium">
-              by {authors.map((a) => a.name).join(", ")}
+              {`${Strings.BY_AUTHOR} ${authors.map((a) => a.name).join(", ")}`}
             </Text>
           </TouchableOpacity>
         )}
@@ -186,10 +186,10 @@ export default function ThemeInfoActionSheet({
               color: semanticColors.MOBILE_TEXT_HEADING_PRIMARY,
             }}
           >
-            Description
+            {Strings.DESCRIPTION}
           </Text>
           <Text variant="text-md/medium">
-            {themeState.data.description || "No description provided."}
+            {themeState.data.description || Strings.NO_DESCRIPTION}
           </Text>
         </Card>
       </ScrollView>

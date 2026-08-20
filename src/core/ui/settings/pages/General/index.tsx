@@ -123,7 +123,7 @@ export default function General() {
         style={{ paddingVertical: 24, paddingHorizontal: 12 }}
         spacing={24}
       >
-        <TableRowGroup title="App Information">
+        <TableRowGroup title={Strings.APP_INFORMATION}>
           <TableRow
             label="KasumiCord"
             icon={<TableRow.Icon source={{ uri: kasumicordIcon ?? "" }} />}
@@ -148,16 +148,16 @@ export default function General() {
             }
           />
         </TableRowGroup>
-        <TableRowGroup title="Quick Actions">
+        <TableRowGroup title={Strings.QUICK_ACTIONS}>
           <TableRow
             label={Strings.RELOAD_DISCORD}
-            subLabel="Restart the application"
+            subLabel={Strings.RESTART_APP}
             icon={<TableRow.Icon source={findAssetId("RetryIcon")} />}
             onPress={() => BundleUpdaterManager.reload()}
           />
           <TableSwitchRow
-            label="Safe Mode"
-            subLabel="Temporarily disable all add-ons"
+            label={Strings.SAFE_MODE}
+            subLabel={Strings.SAFE_MODE_SUB}
             icon={<TableRow.Icon source={findAssetId("ShieldIcon")} />}
             value={isSafeMode()}
             onValueChange={(to: boolean) => {
@@ -165,20 +165,20 @@ export default function General() {
               openAlert(
                 "bunny-reload-safe-mode",
                 <AlertModal
-                  title="Reload now?"
+                  title={Strings.RELOAD_NOW_QUESTION}
                   content={
                     !to
-                      ? "All add-ons will load normally."
-                      : "All add-ons will be temporarily disabled upon reload."
+                      ? Strings.RELOAD_NORMAL_EXPLANATION
+                      : Strings.RELOAD_SAFE_EXPLANATION
                   }
                   actions={
                     <AlertActions>
                       <AlertActionButton
-                        text="Reload Now"
+                        text={Strings.RELOAD_NOW}
                         variant="destructive"
                         onPress={() => BundleUpdaterManager.reload()}
                       />
-                      <AlertActionButton text="Later" variant="secondary" />
+                      <AlertActionButton text={Strings.LATER} variant="secondary" />
                     </AlertActions>
                   }
                 />,
@@ -190,7 +190,7 @@ export default function General() {
         <TableRowGroup title="Developer">
           <TableSwitchRow
             label={Strings.DEVELOPER_SETTINGS}
-            subLabel="Enable developer tools and settings"
+            subLabel={Strings.ENABLE_DEV_TOOLS_SUB}
             icon={<TableRow.Icon source={findAssetId("WrenchIcon")} />}
             value={settings.developerSettings}
             onValueChange={(v: boolean) => {
@@ -208,7 +208,7 @@ export default function General() {
           />
         </TableRowGroup>
 
-        <TableRowGroup title="Community & Support">
+        <TableRowGroup title={Strings.COMMUNITY_SUPPORT}>
           <View
             style={{
               flexDirection: "row",
@@ -218,7 +218,7 @@ export default function General() {
             <CommunityCardButton
               icon={findAssetId("Discord")}
               label="Discord"
-              subLabel="Join our support server"
+              subLabel={Strings.JOIN_SUPPORT_SERVER}
               color="#5865F2"
               onPress={() => Linking.openURL(DISCORD_SERVER)}
             />
@@ -226,11 +226,11 @@ export default function General() {
           </View>
         </TableRowGroup>
 
-        <TableRowGroup title="System Information">
+        <TableRowGroup title={Strings.SYSTEM_INFORMATION}>
           <TableRow
             arrow
             label={Strings.ABOUT}
-            subLabel="Detailed technical information"
+            subLabel={Strings.DETAILED_TECHNICAL_INFO}
             icon={
               <TableRow.Icon
                 source={findAssetId("CircleInformationIcon-primary")}
