@@ -6,8 +6,8 @@
     "url": "https://github.com/kmmiio99o"
   },
   "scripts": {
-    "build": "node scripts/build.mjs",
-    "serve": "node scripts/serve.mjs",
+    "build": "bun scripts/build.mjs",
+    "serve": "bun scripts/serve.mjs",
     "serve:adb": "bun run serve --adb",
     "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx"
   },

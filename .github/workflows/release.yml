@@ -21,7 +21,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+        uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
 
@@ -89,11 +89,11 @@ jobs:
         shell: bash
 
       - name: Build
-        run: bun run build
+        run: bun scripts/build.mjs
         shell: bash
 
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.prepare.outputs.tag }}
           name: Release ${{ steps.prepare.outputs.tag }}
